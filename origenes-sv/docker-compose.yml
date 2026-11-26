@@ -3,15 +3,15 @@ services:
     image: postgres:17-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: origenes
-      POSTGRES_USER: origenes
-      POSTGRES_PASSWORD: origenes
+      POSTGRES_DB: rorigenes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Admin123
     ports:
       - "5433:5432"
     volumes:
       - origenes-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U origenes -d origenes"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rorigenes"]
       interval: 5s
       timeout: 3s
       retries: 10

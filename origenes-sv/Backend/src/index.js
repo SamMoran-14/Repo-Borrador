@@ -1,6 +1,6 @@
 import { config } from "./config/env.js";
 import { initializeDatabase, pool } from "./config/db.js";
-import { createAdminUser } from "./services/authService.js";
+import { createAdminUser } from "./Backend/authService.js";
 import { createApp } from "./app.js";
 
 try {

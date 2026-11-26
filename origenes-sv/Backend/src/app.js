@@ -23,7 +23,7 @@ export function createApp({ jwtSecret, appOrigin }) {
   app.use("/api", apiNotFound);
 
   // En producción el servidor también entrega el cliente compilado (npm run build -> client/dist/).
-  const webRoot = path.resolve(__dirname, "../../client/dist");
+  const webRoot = path.resolve(__dirname, "../../Frontend/dist");
   app.use(express.static(webRoot, { index: false }));
   app.get("/{*path}", (_req, res, next) => {
     res.sendFile(path.join(webRoot, "index.html"), (error) => {

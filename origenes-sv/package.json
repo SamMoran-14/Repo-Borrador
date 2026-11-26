@@ -4,19 +4,19 @@
   "private": true,
   "description": "Restaurante Orígenes SV — ERP y POS (monorepo: client + server)",
   "workspaces": [
-    "client",
-    "server"
+    "Frontend",
+    "Backend"
   ],
   "engines": {
     "node": ">=20.19.0"
   },
   "scripts": {
-    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
-    "dev:api": "npm run dev -w server",
-    "dev:web": "npm run dev -w client",
-    "build": "npm run build -w client",
-    "start": "npm run start -w server",
-    "test": "npm test -w server"
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w Backend\" \"npm run dev -w Frontend\"",
+    "dev:api": "npm run dev -w Backend",
+    "dev:web": "npm run dev -w Frontend",
+    "build": "npm run build -w Frontend",
+    "start": "npm run start -w Backend",
+    "test": "npm test -w Backend"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
