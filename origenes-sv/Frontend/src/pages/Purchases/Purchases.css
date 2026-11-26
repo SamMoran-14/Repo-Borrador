@@ -1,0 +1,1019 @@
+.prov-page {
+  /* Alto del botón de filtros (Proveedores y Vista facturas): cámbialo aquí para agrandarlo o reducirlo */
+  --prov-filter-h: 78px;
+  padding: 1.25rem 1.5rem 2rem;
+  color: #1c2526;
+}
+ 
+.prov-loading {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+ 
+.prov-layout {
+  display: grid;
+  grid-template-columns: minmax(440px, 520px) 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+ 
+/* ================= PANEL IZQUIERDO: FACTURA ================= */
+.invoice-panel {
+  /* Botones Cancelar / Confirmar compra (imágenes) */
+  --action-btn-w: 190px;      /* ancho de cada botón */
+  --action-btn-h: 58px;       /* alto visible: recorta el espacio transparente de la imagen */
+  --action-label-left: 27%;   /* donde empieza el texto (después del rombo de la imagen) */
+  --action-label-right: 13%;  /* donde termina el texto (antes del borde de la pincelada) */
+  /* Columnas de las filas de insumos (cabecera y filas usan las mismas) */
+  --lines-cols: 1.3fr 1.2fr 0.85fr 0.85fr;
+  background-color: #f3f4f4;
+  border-radius: 4px;
+  padding: 1.35rem 1.4rem 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  font-family: "Georgia", "Times New Roman", serif;
+}
+ 
+.invoice-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #1c2526;
+}
+ 
+.invoice-divider {
+  height: 1px;
+  background-color: #9ba5a5;
+  margin: 0.45rem 0 1.1rem;
+}
+ 
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+ 
+/* Caja superior Proveedor / Fecha / No. Factura */
+.invoice-top-box {
+  background-color: #a9dbe4;
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem 0.85rem;
+}
+ 
+.invoice-top-labels {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: #1c2526;
+  margin-bottom: 0.35rem;
+  padding: 0 0.25rem;
+}
+ 
+.invoice-top-inputs {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+ 
+/* Caja central Insumo / Cantidad / Costo / Total */
+.invoice-items-box {
+  background-color: #a9dbe4;
+  border-radius: 6px;
+  padding: 0.7rem 0.75rem 0.85rem;
+}
+ 
+.invoice-items-header {
+  display: grid;
+  grid-template-columns: var(--lines-cols);
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: #1c2526;
+  margin-bottom: 0.55rem;
+}
+ 
+.col-insumo-lbl {
+  padding-left: 2.1rem;
+}
+ 
+.col-cant-lbl,
+.col-cost-lbl {
+  padding-left: 0.35rem;
+}
+ 
+.col-total-lbl {
+  text-align: center;
+}
+ 
+.invoice-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+ 
+.invoice-line-row {
+  display: grid;
+  grid-template-columns: var(--lines-cols);
+  gap: 0.5rem;
+  align-items: center;
+}
+ 
+/* Píldoras de selección / entrada */
+.pill-wrap {
+  height: 34px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ 
+.pill-supplier,
+.pill-insumo {
+  background-color: #169ef0;
+}
+ 
+.pill-insumo {
+  padding-left: 0.25rem;
+}
+ 
+.pill-date,
+.pill-invoice,
+.pill-cant,
+.pill-cost {
+  background-color: #36c5d6;
+}
+ 
+.line-remove-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 0.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+ 
+.line-remove-btn:hover {
+  transform: scale(1.12);
+}
+ 
+.line-remove-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+ 
+.pill-wrap .form-select,
+.pill-wrap .form-control {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0;
+  height: 100%;
+  min-width: 0;
+}
+ 
+.pill-wrap .form-select {
+  background-image: none !important;
+  padding-right: 1rem;
+  cursor: pointer;
+}
+ 
+.pill-wrap .form-select option {
+  color: #1c2526;
+  background-color: #ffffff;
+}
+ 
+.pill-wrap .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+ 
+.pill-date .form-control {
+  font-size: 0.72rem;
+}
+ 
+/* Cantidad y costo: campos numéricos limpios, sin las flechitas de subir/bajar */
+.pill-number.form-control {
+  flex: 1;
+  width: 100%;
+}
+ 
+.pill-wrap input[type="number"]::-webkit-outer-spin-button,
+.pill-wrap input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+ 
+.pill-wrap input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+ 
+/* Unidad dentro de la píldora de cantidad */
+.pill-unit-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 58px;
+  height: 100%;
+  padding-left: 0.4rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+ 
+.pill-unit-wrap .pill-arrow {
+  right: 0.05rem;
+}
+ 
+/* Prefijo "$" de la píldora de costo */
+.pill-cost {
+  gap: 0.3rem;
+}
+ 
+.pill-prefix {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+ 
+.pill-arrow {
+  position: absolute;
+  right: 0.45rem;
+  font-size: 0.72rem;
+  pointer-events: none;
+}
+ 
+.arrow-purple {
+  color: #5b3cc4;
+}
+ 
+.arrow-blue {
+  color: #1273de;
+}
+ 
+/* Cajita blanca de TOTAL por fila */
+.line-total-box {
+  height: 32px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 0.45rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1c2526;
+}
+ 
+.add-line-link {
+  margin-top: 0.65rem;
+  background: none;
+  border: none;
+  color: #145c66;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+ 
+.add-line-link:hover {
+  text-decoration: underline;
+}
+ 
+/* Bloque inferior: botones Cancelar/Confirmar + Subtotal/Total con IVA */
+.invoice-bottom-box {
+  background-color: #a9dbe4;
+  border-radius: 6px;
+  padding: 0.9rem 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+ 
+.invoice-actions-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+ 
+/* Botones de imagen (EliminarProducto.png / AñadirProducto.png).
+   - La imagen se recorta en vertical (object-fit: cover) para quitar su espacio transparente.
+   - El texto vive en una caja delimitada (left/right) y puede partirse en dos líneas,
+     así nunca se sale de la pincelada ni tapa el rombo. */
+.img-action-btn {
+  position: relative;
+  display: block;
+  width: var(--action-btn-w);
+  height: var(--action-btn-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+ 
+.img-action-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+ 
+.img-action-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--action-label-left);
+  right: var(--action-label-right);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  text-wrap: balance;
+  pointer-events: none;
+}
+ 
+.img-action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+ 
+.img-action-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+ 
+.img-action-btn:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+ 
+.img-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+ 
+.invoice-summary-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 96px;
+}
+ 
+.summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+ 
+.summary-label {
+  font-size: 0.76rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: #1c2526;
+  line-height: 1.15;
+}
+ 
+.summary-value {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95rem;
+  color: #162020;
+}
+ 
+/* ================= PANEL DERECHO: PROVEEDORES ================= */
+.suppliers-panel {
+  background-color: #f3f4f4;
+  border-radius: 4px;
+  padding: 1.35rem 1.6rem 1.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  font-family: "Georgia", "Times New Roman", serif;
+}
+ 
+.suppliers-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+  font-variant: small-caps;
+  color: #1c2526;
+}
+ 
+.suppliers-divider {
+  height: 1px;
+  background-color: #9ba5a5;
+  margin: 0.45rem 0 1rem;
+}
+ 
+.suppliers-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+ 
+.suppliers-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  max-width: 340px;
+}
+ 
+.suppliers-search-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+ 
+.suppliers-search-input.form-control {
+  background-color: #bfbfbf !important;
+  border: none !important;
+  border-radius: 4px;
+  height: 32px;
+  font-size: 0.88rem;
+}
+ 
+/* flex: 0 0 auto evita que el botón se encoja, que era lo que lo dejaba tan pequeño */
+.suppliers-filter-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+ 
+.suppliers-filter-btn {
+  display: block;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+ 
+.suppliers-filter-btn img {
+  display: block;
+  height: var(--prov-filter-h);
+  width: auto;
+  max-width: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+ 
+.suppliers-filter-btn:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+ 
+.suppliers-filter-btn:active img {
+  transform: scale(0.96);
+}
+ 
+.suppliers-filter-btn:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+ 
+.suppliers-filter-menu {
+  position: absolute;
+  top: calc(var(--prov-filter-h) + 6px);
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  z-index: 20;
+  min-width: 195px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+ 
+.filter-menu-title {
+  padding: 0.45rem 0.8rem 0.2rem;
+  color: #6b7a78;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+ 
+.suppliers-filter-menu button {
+  background: none;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+ 
+.suppliers-filter-menu button:hover,
+.suppliers-filter-menu button.active {
+  background-color: #e6f4f3;
+  color: #266b66;
+  font-weight: 600;
+}
+ 
+/* Tabla de proveedores estilo maqueta */
+.suppliers-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+ 
+.suppliers-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+ 
+.suppliers-table thead th {
+  background-color: #368882;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.88rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  position: relative;
+}
+ 
+.suppliers-table thead th:first-child {
+  border-top-left-radius: 6px;
+  width: 34%;
+}
+ 
+.suppliers-table thead th:nth-child(2) {
+  border-top-right-radius: 6px;
+}
+ 
+.suppliers-table thead th:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 1.5px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+ 
+.suppliers-table thead th.col-prov-accion {
+  background-color: transparent;
+  width: 38px;
+}
+ 
+.suppliers-table tbody td.prov-cell {
+  background-color: #b8c2be;
+  color: #162020;
+  padding: 0.55rem 0.85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.86rem;
+  height: 36px;
+  position: relative;
+}
+ 
+.suppliers-table tbody tr:nth-child(even) td.prov-cell {
+  background-color: #c7d1cc;
+}
+ 
+.suppliers-table tbody td.prov-cell:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+ 
+.suppliers-table tbody td.prov-empty {
+  text-align: center;
+  border-radius: 6px;
+}
+ 
+.suppliers-table tbody td.prov-empty::before {
+  display: none;
+}
+ 
+.prov-action-cell {
+  background: transparent !important;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+ 
+.prov-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+ 
+.prov-delete-btn:hover {
+  transform: scale(1.12);
+}
+ 
+.prov-delete-btn img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+ 
+/* ---- Fila verde clara que funciona como botón para añadir un proveedor ---- */
+.suppliers-table tbody .prov-add-trigger-row td:not(.prov-action-cell) {
+  padding: 0;
+  background: transparent;
+}
+ 
+.prov-add-trigger {
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: #cce8d0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+ 
+.prov-add-trigger:hover {
+  background: #b5dcbc;
+  box-shadow: 0 3px 10px rgba(54, 136, 130, 0.22);
+}
+ 
+.prov-add-trigger:active {
+  background: #9ccaa5;
+  box-shadow: none;
+  transform: scale(0.995);
+}
+ 
+.prov-add-trigger:focus-visible,
+.prov-save-btn:focus-visible,
+.prov-cancel-btn:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+ 
+/* Formulario de proveedor nuevo */
+.suppliers-table tbody .prov-form-row td:not(.prov-action-cell) {
+  padding: 0.85rem 0.9rem;
+  border-radius: 6px;
+  background: #cce8d0;
+}
+ 
+.prov-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+  align-items: end;
+}
+ 
+.prov-form-grid label {
+  display: block;
+  margin-bottom: 3px;
+  color: #1c2526;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+ 
+.prov-form-grid .form-control {
+  height: 34px;
+  border: 1px solid #88b8c0;
+  border-radius: 6px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+}
+ 
+.prov-form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #8f1623;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+ 
+.prov-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+ 
+.prov-save-btn {
+  padding: 0.5rem 1.2rem;
+  border: 0;
+  border-radius: 8px;
+  background: #368882;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+ 
+.prov-save-btn:hover:not(:disabled) {
+  background: #2b6f6a;
+}
+ 
+.prov-save-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+ 
+.prov-cancel-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #1c2526;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+ 
+.prov-save-btn:disabled,
+.prov-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+ 
+@media (max-width: 1024px) {
+  .prov-layout {
+    grid-template-columns: 1fr;
+  }
+}
+ 
+ 
+/* ================= PESTAÑAS: REGISTRO / VISTA FACTURAS ================= */
+.prov-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+}
+ 
+.prov-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.15rem;
+  border: 0;
+  border-radius: 999px;
+  background: #dcebea;
+  color: #266b66;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+ 
+.prov-tab:hover {
+  background: #c8e0de;
+}
+ 
+.prov-tab:active {
+  transform: scale(0.97);
+}
+ 
+.prov-tab.active {
+  background: #368882;
+  color: #ffffff;
+}
+ 
+.prov-tab:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 2px;
+}
+ 
+.prov-tab-count {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #1c2526;
+  font-size: 0.74rem;
+  text-align: center;
+}
+ 
+/* ================= VISTA FACTURAS ================= */
+.invoices-panel {
+  /* Zonas de la tarjeta, en % de la caja CajaInformacion.png. Si algo choca con las rayas
+     o el borde de la imagen, ajusta estos cuatro valores. */
+  --invoice-header-center: 7.5%;  /* altura del NOMBRE del proveedor: sube el número para bajarlo, bájalo para subirlo */
+  --invoice-body-top: 19%;        /* la info empieza DEBAJO de las rayas */
+  --invoice-body-side: 9%;        /* margen izquierdo y derecho de la info */
+  --invoice-body-bottom: 11%;     /* margen inferior (sube el número para separar más "Pendiente" del borde) */
+}
+ 
+.invoice-count {
+  margin-left: auto;
+  color: #5d6b69;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.82rem;
+}
+ 
+.invoice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+  padding-top: 0.8rem;
+}
+ 
+/* La tarjeta es cuadrada, igual que la maqueta. container-type permite que los textos
+   escalen con el ancho de la tarjeta (unidades cqw). */
+.invoice-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+}
+ 
+/* La caja de la maqueta (CajaInformacion.png) es el fondo de cada tarjeta */
+.invoice-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+ 
+/* Arriba de la tarjeta: el proveedor, entre el borde y la raya turquesa.
+   top ubica el CENTRO del texto (translateY(-50%) lo centra sobre ese punto),
+   así no depende de que la franja tenga un alto calculado. */
+.invoice-card-supplier {
+  position: absolute;
+  top: var(--invoice-header-center);
+  --invoice-header-center: 13%;
+  left: 7%;
+  right: 7%;
+  margin: 0;
+  transform: translateY(-50%);
+  color: #1c2526;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1rem;
+  font-size: clamp(0.8rem, 6cqw, 1.2rem);
+  font-weight: 600;
+  font-variant: small-caps;
+  line-height: 1.2;
+  text-align: center;
+}
+ 
+/* El texto va en un span para poder cortarlo con "…" si el nombre es muy largo */
+.invoice-card-supplier span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ 
+/* Debajo de las rayas: el resto de la información, repartida por el espacio disponible */
+.invoice-card-body {
+  position: absolute;
+  top: var(--invoice-body-top);
+  left: var(--invoice-body-side);
+  right: var(--invoice-body-side);
+  bottom: var(--invoice-body-bottom);
+  display: flex;
+  flex-direction: column;
+}
+ 
+.invoice-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.82rem;
+  font-size: clamp(0.72rem, 4.6cqw, 0.95rem);
+}
+ 
+.invoice-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+ 
+.invoice-row dt {
+  color: #5d6b69;
+  font-weight: 600;
+  white-space: nowrap;
+}
+ 
+.invoice-row dd {
+  margin: 0;
+  color: #162020;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+ 
+.invoice-row-total dd {
+  font-weight: 700;
+}
+ 
+.invoice-status {
+  align-self: center;
+  margin-top: 0.4rem;
+  padding: 3px 14px;
+  border-radius: 999px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-size: clamp(0.68rem, 4cqw, 0.8rem);
+  font-weight: 700;
+}
+ 
+.invoice-status-pending {
+  background: #ffe9a8;
+  color: #7a5200;
+}
+ 
+.invoice-status-partial {
+  background: #d8e6ff;
+  color: #1f4a99;
+}
+ 
+.invoice-status-paid {
+  background: #cdeed6;
+  color: #17713a;
+}
+ 
+/* La X azul (EliminarReceta.png) sobre la esquina superior derecha, como en la maqueta */
+.invoice-card-delete {
+  position: absolute;
+  top: -3.5%;
+  right: -3.5%;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+ 
+.invoice-card-delete img {
+  display: block;
+  width: 40px;
+  width: clamp(30px, 12cqw, 46px);
+  height: auto;
+}
+ 
+.invoice-card-delete:hover {
+  transform: scale(1.12);
+}
+ 
+.invoice-card-delete:active {
+  transform: scale(0.92);
+}
+ 
+.invoice-card-delete:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+ 
+.invoice-empty {
+  margin: 1.5rem 0 0;
+  padding: 1.4rem;
+  border-radius: 8px;
+  background: #cce8d0;
+  color: #1c2526;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+}
+ 

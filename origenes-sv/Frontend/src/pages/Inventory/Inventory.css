@@ -1,0 +1,312 @@
+/* Estilos de la página Inventario. Todas las clases llevan prefijo "inv-"
+   para no afectar al resto de la aplicación. Colores tomados del Figma. */
+ 
+.inv-page {
+  --inv-filter-h: 52px; /* alto del botón de filtros: cámbialo aquí para agrandarlo o reducirlo */
+  --inv-teal: #0a9594;
+  --inv-teal-soft: #a2cbc7;
+  --inv-green-soft: #cce8d0;
+  --inv-blue: #3f46c9;
+  --inv-ink: #17302c;
+}
+ 
+.inv-title {
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #9aa5a2;
+  color: #111;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 500;
+  font-variant: small-caps;
+  letter-spacing: .5px;
+}
+ 
+/* Buscador y botón de filtros */
+.inv-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+ 
+.inv-search {
+  display: flex;
+  flex: 0 1 360px;
+  align-items: center;
+  gap: 10px;
+}
+ 
+.inv-search-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+}
+ 
+.inv-search .form-control {
+  border: 0;
+  background: #b3b3b3;
+  color: #111;
+}
+ 
+.inv-search .form-control::placeholder {
+  color: #4d4d4d;
+}
+ 
+.inv-filter-btn,
+.inv-delete {
+  padding: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+}
+ 
+.inv-filter-btn img {
+  height: var(--inv-filter-h);
+  transition: transform .15s ease, filter .15s ease;
+}
+ 
+.inv-filter-btn:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+ 
+.inv-filter-btn:active img {
+  transform: scale(.96);
+}
+ 
+.inv-filter-btn:focus-visible,
+.inv-delete:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+ 
+.inv-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #e9f3f2;
+}
+ 
+.inv-filters label {
+  min-width: 180px;
+  color: var(--inv-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+ 
+/* Tarjetas resumen */
+.inv-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 34px;
+  margin-bottom: 26px;
+}
+ 
+.inv-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--inv-ink);
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-variant: small-caps;
+}
+ 
+.inv-stat img {
+  width: 42px;
+  height: 42px;
+}
+ 
+.inv-stat strong {
+  font-size: 18px;
+}
+ 
+/* Tabla: filas redondeadas separadas, como en el diseño */
+.inv-table {
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  margin: 0;
+  color: var(--inv-ink);
+}
+ 
+.inv-table thead th {
+  padding: 11px 14px;
+  border: 0;
+  border-left: 2px solid rgba(255, 255, 255, .85);
+  background: var(--inv-teal);
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-variant: small-caps;
+  font-weight: 500;
+  white-space: nowrap;
+}
+ 
+.inv-table thead th:first-child {
+  border-left: 0;
+  border-radius: 8px 0 0 8px;
+}
+ 
+.inv-table thead th:nth-last-child(1):not(.inv-action),
+.inv-table thead th:nth-last-child(2):has(+ .inv-action) {
+  border-radius: 0 8px 8px 0;
+}
+ 
+.inv-table tbody td {
+  padding: 12px 14px;
+  border: 0;
+  border-left: 2px solid rgba(255, 255, 255, .85);
+  background: var(--inv-teal-soft);
+  font-size: 13px;
+}
+ 
+.inv-table tbody td:first-child {
+  border-left: 0;
+  border-radius: 8px 0 0 8px;
+  font-weight: 600;
+}
+ 
+.inv-table tbody td:last-child:not(.inv-action),
+.inv-table tbody td:has(+ .inv-action) {
+  border-radius: 0 8px 8px 0;
+}
+ 
+/* Fila con estado distinto: mismo diseño, con una marca lateral de color */
+.inv-row-low td:first-child { box-shadow: inset 5px 0 #f0a500; }
+.inv-row-out td:first-child { box-shadow: inset 5px 0 #d62b3a; }
+ 
+/* Columna de la X: queda fuera de la fila coloreada, como en el Figma */
+.inv-table .inv-action {
+  width: 44px;
+  padding: 0 0 0 8px;
+  border: 0;
+  background: transparent;
+}
+ 
+.inv-delete img {
+  width: 30px;
+  height: 30px;
+}
+ 
+.inv-delete:hover img {
+  transform: scale(1.1);
+}
+ 
+/* Etiquetas de estado (separadas de los .ok-badge/.alert-badge globales) */
+.inv-badge {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+ 
+.inv-badge-ok  { background: #fff; color: #17713a; }
+.inv-badge-low { background: #ffe9a8; color: #7a5200; }
+.inv-badge-out { background: #fbd0d4; color: #8f1623; }
+ 
+.inv-table .inv-empty td {
+  padding: 28px 14px;
+  border-radius: 8px;
+  background: var(--inv-green-soft);
+  text-align: center;
+}
+ 
+@media (max-width: 575px) {
+  .inv-search { flex: 1 1 auto; }
+  .inv-summary { gap: 14px 22px; }
+}
+ 
+/* ---- Fila verde para crear artículos ---- */
+.inv-table tbody .inv-add-row td:not(.inv-action) {
+  background: var(--inv-green-soft);
+}
+ 
+/* Fila verde clara que funciona como botón para crear un artículo */
+.inv-table tbody .inv-add-trigger-row td {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+ 
+.inv-add-trigger {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--inv-green-soft);
+  cursor: pointer;
+  transition: background-color .15s ease, transform .1s ease, box-shadow .15s ease;
+}
+ 
+.inv-add-trigger:hover {
+  background: #b5dcbc;
+  box-shadow: 0 3px 10px rgba(10, 149, 148, .22);
+}
+ 
+.inv-add-trigger:active {
+  background: #9ccaa5;
+  box-shadow: none;
+  transform: scale(.995);
+}
+ 
+.inv-add-trigger:focus-visible,
+.inv-save:focus-visible,
+.inv-cancel:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+ 
+.inv-add-form td {
+  vertical-align: top;
+}
+ 
+.inv-add-form .form-control,
+.inv-add-form .form-select {
+  min-height: 36px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+ 
+.inv-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+ 
+.inv-save {
+  padding: 7px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--inv-teal);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+ 
+.inv-cancel {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--inv-ink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+ 
+.inv-save:disabled,
+.inv-cancel:disabled {
+  opacity: .6;
+  cursor: default;
+}
+ 

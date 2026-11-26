@@ -1,0 +1,24 @@
+{
+  "name": "origenes-sv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Restaurante Orígenes SV — ERP y POS (monorepo: client + server)",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:api": "npm run dev -w server",
+    "dev:web": "npm run dev -w client",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
