@@ -2,6 +2,8 @@ import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { z } from "zod";
 
+// El archivo .env vive en la raíz del monorepo (junto a docker-compose.yml),
+// sin importar desde qué carpeta se arranque el servidor.
 dotenv.config({ path: fileURLToPath(new URL("../../../.env", import.meta.url)) });
 
 const parsed = z.object({

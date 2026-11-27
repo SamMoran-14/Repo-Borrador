@@ -3,10 +3,7 @@ import {
   Alert, Badge, Button, Card, CardBody, Col, FormGroup, Input, Label, Row, Spinner
 } from "reactstrap";
 import { api, formatMoney } from "../../api/api.js";
-import { countDigits, formatNit, formatNrc } from "../../utils/documents.js";
 import { useWorkspace } from "../../context/WorkspaceContext.js";
-
-const emptyCustomer = { name: "", nit: "", nrc: "" };
 
 const methods = [
   ["CASH", "Efectivo"],
@@ -25,7 +22,6 @@ export default function Pos() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [receipt, setReceipt] = useState(null);
-  const [customer, setCustomer] = useState(emptyCustomer);
 
   useEffect(() => {
     setLoading(true);
@@ -41,10 +37,6 @@ export default function Pos() {
   const subtotal = cartItems.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0);
   const tax = subtotal * 0.13;
   const total = subtotal + tax;
-  // El CCF no se puede emitir sin los datos fiscales del cliente.
-  const customerReady = documentType !== "CCF" || (
-    customer.name.trim().length >= 2 && countDigits(customer.nit) === 14 && countDigits(customer.nrc) >= 2
-  );
 
   function updateQuantity(productId, amount) {
     setReceipt(null);
@@ -68,17 +60,13 @@ export default function Pos() {
           branchId,
           documentType,
           paymentMethod,
-          items: cartItems.map(({ product, quantity }) => ({ productId: product.id, quantity })),
-          ...(documentType === "CCF" ? { customer } : {})
+          items: cartItems.map(({ product, quantity }) => ({ productId: product.id, quantity }))
         }
       });
       setReceipt(result);
       setCart({});
-      setCustomer(emptyCustomer);
     } catch (requestError) {
-      // Mensaje general + el detalle por campo (por ejemplo, "El NIT debe tener 14 dígitos").
-      const details = (requestError.details ?? []).map((detail) => detail.message);
-      setError([requestError.message, ...details].join(" "));
+      setError(requestError.message);
     } finally {
       setBusy(false);
     }
@@ -138,34 +126,6 @@ export default function Pos() {
                   <option value="CCF">Comprobante de crédito fiscal (CCF)</option>
                 </Input>
               </FormGroup>
-              {documentType === "CCF" && (
-                <div className="ccf-fields">
-                  <p className="eyebrow">DATOS DEL CLIENTE (CCF)</p>
-                  <FormGroup>
-                    <Label for="customerName">Nombre o razón social</Label>
-                    <Input id="customerName" value={customer.name} maxLength="160"
-                      onChange={(event) => setCustomer({ ...customer, name: event.target.value })} />
-                  </FormGroup>
-                  <Row className="g-2">
-                    <Col sm="7">
-                      <FormGroup>
-                        <Label for="customerNit">NIT</Label>
-                        <Input id="customerNit" value={customer.nit} inputMode="numeric"
-                          placeholder="0000-000000-000-0"
-                          onChange={(event) => setCustomer({ ...customer, nit: formatNit(event.target.value) })} />
-                      </FormGroup>
-                    </Col>
-                    <Col sm="5">
-                      <FormGroup>
-                        <Label for="customerNrc">NRC</Label>
-                        <Input id="customerNrc" value={customer.nrc} inputMode="numeric"
-                          placeholder="123456-7"
-                          onChange={(event) => setCustomer({ ...customer, nrc: formatNrc(event.target.value) })} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </div>
-              )}
               <FormGroup>
                 <Label for="paymentMethod">Forma de pago</Label>
                 <Input id="paymentMethod" type="select" value={paymentMethod}
@@ -173,10 +133,9 @@ export default function Pos() {
                   {methods.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
                 </Input>
               </FormGroup>
-              <Button color="success" className="w-100" disabled={!cartItems.length || busy || !customerReady} onClick={submitSale}>
+              <Button color="success" className="w-100" disabled={!cartItems.length || busy} onClick={submitSale}>
                 {busy ? <Spinner size="sm" /> : "Cobrar y emitir factura"}
               </Button>
-              {!customerReady && <small className="muted d-block mt-2">Complete nombre, NIT (14 dígitos) y NRC para emitir el CCF.</small>}
               <small className="muted d-block mt-2">Los precios se muestran antes de IVA.</small>
             </CardBody></Card>
           </Col>

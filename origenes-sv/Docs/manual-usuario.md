@@ -39,6 +39,14 @@ El panel de caja muestra ventas por forma de pago y efectivo esperado (fondo de 
 
 La planilla es una herramienta académica de cálculo, no una liquidación certificada. Verifica los límites y tablas legales del período antes de efectuar pagos.
 
+## Cambiar contraseña
+
+1. En la navegación lateral, abre **Seguridad**.
+2. Ingresa tu contraseña actual y la nueva contraseña dos veces.
+3. La nueva contraseña debe tener al menos 12 caracteres. Selecciona **Actualizar contraseña**.
+
+Al completar el cambio, tu sesión actual continúa activa y las demás sesiones se invalidan.
+
 ## Cerrar sesión
 
 Usa **Cerrar sesión** en la navegación lateral. Los tokens vencen a las ocho horas; vuelve a ingresar si la sesión expira.
