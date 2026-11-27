@@ -1,6 +1,6 @@
 import { config } from "./config/env.js";
 import { initializeDatabase, pool } from "./config/db.js";
-import { createAdminUser } from "./Backend/authService.js";
+import { createAdminUser } from "./services/authService.js";
 import { createApp } from "./app.js";
 
 try {
@@ -20,7 +20,7 @@ try {
     });
   }
 } catch (error) {
-  console.error("No se pudo iniciar Orígenes SV:", error.message);
+  console.error("No se pudo iniciar Orígenes SV:", error);
   await pool.end();
   process.exit(1);
 }
